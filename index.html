@@ -1,352 +1,463 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Md. Rasheduzzaman — Portfolio</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-      --glass-bg: rgba(255, 255, 255, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.8);
-      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-      
-      --primary: #0f172a;
-      --secondary: #64748b;
-      --accent: #0ea5e9;
-      --accent-glow: rgba(14, 165, 233, 0.4);
-      
-      --font-main: 'Outfit', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Md. Rasheduzzaman — Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --accent: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.4);
+            
+            --font-main: 'Outfit', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
 
-    [data-theme='dark'] {
-      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      --glass-bg: rgba(30, 41, 59, 0.70);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      
-      --primary: #f1f5f9;
-      --secondary: #94a3b8;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.3);
-    }
+        [data-theme='dark'] {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --glass-bg: rgba(30, 41, 59, 0.70);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            
+            --primary: #f1f5f9;
+            --secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+        }
 
-    * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+        * { box-sizing: border-box; transition: background 0.3s, color 0.3s, border-color 0.3s; }
 
-    body {
-      font-family: var(--font-main);
-      margin: 0;
-      background: var(--bg-gradient);
-      background-attachment: fixed;
-      color: var(--primary);
-      min-height: 100vh;
-    }
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--primary);
+            min-height: 100vh;
+        }
 
-    /* --- Header --- */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 16px 5%;
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
-    }
+        /* --- New Hero Section (Replaces Header) --- */
+        .hero {
+            position: relative;
+            padding: 80px 5% 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: var(--glass-bg); /* Use glass for top section for continuity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        /* Floating utility bar for theme/nav */
+        .utility-bar {
+            position: absolute;
+            top: 20px;
+            right: 5%;
+            display: flex;
+            gap: 10px;
+        }
 
-    .avatar-wrapper { position: relative; width: 85px; height: 85px; flex-shrink: 0; }
+        .avatar-wrapper { position: relative; width: 120px; height: 120px; flex-shrink: 0; margin-bottom: 20px;}
 
-    .avatar {
-      width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 20px var(--accent-glow);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .avatar:hover { transform: scale(1.1) rotate(2deg); }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .avatar {
+            width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .avatar:hover { transform: scale(1.05) rotate(0deg); }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .status-badge {
-      position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
-      background: #10b981; border: 3px solid #fff; border-radius: 50%;
-    }
+        .status-badge {
+            position: absolute; bottom: 0; right: 8px; width: 25px; height: 25px;
+            background: #10b981; border: 4px solid var(--glass-bg); border-radius: 50%;
+            transition: border-color 0.3s;
+        }
 
-    .header-info { flex: 1; }
-    .name { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-    .role { font-family: var(--font-code); font-size: 0.9rem; color: var(--accent); margin-top: 4px; }
+        .name { font-size: 2.2rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; }
+        .role { font-family: var(--font-code); font-size: 1.1rem; color: var(--accent); margin-bottom: 20px; }
 
-    /* --- Layout --- */
-    main {
-      max-width: 1100px; margin: 40px auto; padding: 0 24px;
-      display: grid; grid-template-columns: 300px 1fr; gap: 32px;
-    }
+        /* --- Layout --- */
+        main {
+            max-width: 1100px; margin: 40px auto; padding: 0 24px;
+            display: grid; grid-template-columns: 300px 1fr; gap: 32px;
+        }
 
-    /* --- Cards --- */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--glass-shadow);
-      margin-bottom: 24px;
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .glass-card.appear { opacity: 1; transform: translateY(0); }
+        /* --- Cards --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 24px;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+        }
+        .glass-card:hover {
+             /* Subtle hover effect on all cards */
+             box-shadow: var(--glass-shadow), 0 0 10px rgba(14, 165, 233, 0.1);
+        }
+        .glass-card.appear { opacity: 1; transform: translateY(0); }
 
-    h3 { margin: 0 0 16px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-    h3::before { content:''; display:block; width:6px; height:24px; background:var(--accent); border-radius:10px; }
+        h3 { margin: 0 0 16px 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        h3::before { content:''; display:block; width:6px; height:24px; background:var(--accent); border-radius:10px; }
 
-    p { line-height: 1.7; color: var(--secondary); margin-bottom: 12px; font-size: 0.95rem; }
+        p { line-height: 1.7; color: var(--secondary); margin-bottom: 12px; font-size: 0.95rem; }
 
-    /* --- Skills Visuals --- */
-    .skill-row { margin-bottom: 14px; }
-    .skill-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
-    .bar-bg { height: 8px; background: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; }
-    .bar-fill { height: 100%; background: var(--accent); width: 0; border-radius: 4px; transition: width 1s ease-out; }
+        /* --- Skills Visuals --- */
+        .skill-row { margin-bottom: 14px; }
+        .skill-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; align-items: center; }
+        .skill-info i { color: var(--accent); margin-right: 5px; font-size: 1rem; }
+        .bar-bg { height: 10px; background: rgba(0,0,0,0.05); border-radius: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--accent); width: 0; border-radius: 5px; transition: width 1s ease-out; }
 
-    /* --- Projects Grid --- */
-    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .project {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-    .project:hover { 
-      transform: translateY(-5px); 
-      border-color: var(--accent); 
-      box-shadow: 0 10px 30px -10px var(--accent-glow);
-    }
-    .project h4 { margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px; }
-    .tags { margin-top: auto; padding-top: 12px; display:flex; flex-wrap:wrap; gap: 6px; }
-    .tags span { 
-      font-size: 0.7rem; padding: 4px 10px; background: var(--accent-glow); 
-      color: var(--accent); border-radius: 20px; font-weight: 600;
-    }
-    .view-btn {
-      display: inline-block; margin-top: 12px; font-size: 0.8rem; 
-      text-decoration: none; color: var(--primary); border-bottom: 1px solid var(--accent);
-    }
-    .view-btn:hover { color: var(--accent); }
+        /* --- Projects Grid --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .project {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer; /* Indicate clickability */
+        }
+        .project:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent); 
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
+        }
+        .project h4 { margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+        .tags { margin-top: auto; padding-top: 12px; display:flex; flex-wrap:wrap; gap: 6px; }
+        .tags span { 
+            font-size: 0.7rem; padding: 4px 10px; background: var(--accent-glow); 
+            color: var(--accent); border-radius: 20px; font-weight: 600;
+        }
+        .view-btn {
+            display: inline-block; margin-top: 12px; font-size: 0.8rem; 
+            text-decoration: none; color: var(--primary); border-bottom: 1px solid var(--accent);
+        }
+        .view-btn:hover { color: var(--accent); }
+        .disabled-link { opacity:0.5; cursor:not-allowed; }
 
-    /* --- Buttons & Form --- */
-    .btn {
-      padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
-      background: var(--accent); color: #fff; font-weight: 600; transition: 0.2s;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow); }
-    .btn.outline { background: transparent; border: 1px solid var(--secondary); color: var(--primary); }
-    .btn.outline:hover { border-color: var(--accent); color: var(--accent); }
 
-    input, textarea, select {
-      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border);
-      background: rgba(255,255,255,0.4); color: var(--primary); margin-bottom: 12px; font-family: inherit;
-    }
-    input:focus, textarea:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.8); }
+        /* --- Buttons & Form --- */
+        .btn {
+            padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+            background: var(--accent); color: #fff; font-weight: 600; transition: 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow); }
+        .btn.outline { background: transparent; border: 1px solid var(--secondary); color: var(--primary); }
+        .btn.outline:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* --- Footer --- */
-    footer { text-align: center; padding: 40px; color: var(--secondary); font-size: 0.9rem; }
+        input, textarea, select {
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.4); color: var(--primary); margin-bottom: 12px; font-family: inherit;
+        }
+        [data-theme='dark'] input, [data-theme='dark'] textarea, [data-theme='dark'] select {
+            background: rgba(255,255,255,0.05); /* Dark theme input background */
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.8); }
+        [data-theme='dark'] input:focus, [data-theme='dark'] textarea:focus {
+            background: rgba(30, 41, 59, 0.9);
+        }
 
-    /* Mobile */
-    @media(max-width: 850px) {
-      main { grid-template-columns: 1fr; }
-      header { flex-direction: column; text-align: center; }
-      .header-info { align-items: center; display: flex; flex-direction: column; }
-    }
-  </style>
+        /* --- Modal for Project Details --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center;
+            z-index: 200; backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: var(--glass-bg); padding: 30px; border-radius: 15px; max-width: 600px;
+            width: 90%; box-shadow: var(--glass-shadow); transform: scale(0.9); opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+        .modal.open .modal-content { transform: scale(1); opacity: 1; }
+        .modal-content h3 { font-size: 1.5rem; margin-top: 0; }
+        .modal-content p { color: var(--primary); }
+        .close-btn {
+            position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer;
+            color: var(--secondary);
+        }
+        .close-btn:hover { color: var(--primary); }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 40px; color: var(--secondary); font-size: 0.9rem; }
+
+        /* Mobile */
+        @media(max-width: 850px) {
+            main { grid-template-columns: 1fr; }
+            .hero { padding-top: 100px; }
+            .utility-bar { top: 10px; right: 10px; }
+        }
+    </style>
 </head>
 <body data-theme="light">
 
-  <header>
-    <div class="avatar-wrapper">
-      <div class="avatar">
-        <img src="rashed_formal_photo.png" alt="Rasheduzzaman Photo">
-      </div>
-      <div class="status-badge" title="Online"></div>
-    </div>
-    
-    <div class="header-info">
-      <div class="name">Md. Rasheduzzaman</div>
-      <div class="role" id="typing-text"></div>
-    </div>
+    <div class="hero">
+        <div class="utility-bar">
+            <button class="btn outline" onclick="toggleTheme()"><i class="fas fa-moon"></i> Theme</button>
+            <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">My Work</button>
+        </div>
 
-    <div style="display:flex; gap:10px;">
-      <button class="btn outline" onclick="toggleTheme()">Theme 🌓</button>
-      <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">My Work</button>
-    </div>
-  </header>
-
-  <main>
-    <aside>
-      <div class="glass-card appear-on-scroll">
-        <h3>Contact</h3>
-        <p><strong>📍 Location:</strong> Dhaka, Bangladesh</p>
-        <p><strong>📧 Email:</strong> rasheduzzaman.7rsd@gmail.com</p>
-        <p><strong>📱 Phone:</strong> +880 1964616035</p>
-        
-        <hr style="border:0; border-top:1px solid var(--glass-border); margin: 16px 0;">
-        <p><strong>About:</strong> CSE student & Junior Software Developer. I build secure, efficient backends using Java Spring Boot and solve complex algorithms in C++.</p>
-      </div>
-
-      <div class="glass-card appear-on-scroll">
-        <h3>Skills</h3>
-        <div id="skills-container"></div>
-      </div>
-    </aside>
-
-    <section>
-      <div class="glass-card appear-on-scroll">
-        <h3>Overview</h3>
-        <p>Hi, I'm Rasheduzzaman. I specialize in <strong>Backend Development</strong> using the Spring ecosystem. I love building robust systems that solve real-world problems.</p> 
-        <p>Recently, I led the analysis for the <strong>PUPC (Programming Club)</strong> survey, building a comprehensive digital report and dashboard.</p>
-      </div>
-
-      <div id="projects" class="glass-card appear-on-scroll">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-          <h3>Recent Work</h3>
-          <select id="filter" style="width:auto; margin:0; padding:6px 12px;" onchange="renderProjects()">
-            <option value="all">All</option>
-            <option value="web">Web / Analytics</option>
-            <option value="presentation">Presentations</option>
-            <option value="c++">DSA / C++</option>
-          </select>
+        <div class="avatar-wrapper">
+            <div class="avatar">
+                <img src="rashed_formal_photo.png" alt="Rasheduzzaman Photo"> 
+            </div>
+            <div class="status-badge" title="Online"></div>
         </div>
         
-        <div class="project-grid" id="project-grid"></div>
-      </div>
+        <div class="name">Md. Rasheduzzaman</div>
+        <div class="role" id="typing-text"></div>
+        <p style="max-width: 600px; color: var(--primary); font-size: 1.1rem;">
+            I specialize in **Backend Development** using the Spring ecosystem. I love building robust systems that solve real-world problems.
+        </p>
+    </div>
 
-      <div class="glass-card appear-on-scroll">
-        <h3>Send Message</h3>
-        <form onsubmit="alert('Thank you! This is a demo.'); return false;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <input placeholder="Name" required>
-            <input placeholder="Email" type="email" required>
-          </div>
-          <textarea rows="4" placeholder="Your message..." required></textarea>
-          <button class="btn">Send Message</button>
-        </form>
-      </div>
-    </section>
-  </main>
+    <main>
+        <aside>
+            <div class="glass-card appear-on-scroll" data-delay="0">
+                <h3><i class="fas fa-id-card"></i> Contact</h3>
+                <p><strong>📍 Location:</strong> Dhaka, Bangladesh</p>
+                <p><strong>📧 Email:</strong> rasheduzzaman.7rsd@gmail.com</p>
+                <p><strong>📱 Phone:</strong> +880 1964616035</p>
+                
+                <hr style="border:0; border-top:1px solid var(--glass-border); margin: 16px 0;">
+                <p><strong>Bio:</strong> CSE student & Junior Software Developer. I build secure, efficient backends using Java Spring Boot and solve complex algorithms in C++.</p>
+            </div>
 
-  <footer>
-    &copy; 2025 Md. Rasheduzzaman
-  </footer>
+            <div class="glass-card appear-on-scroll" data-delay="200">
+                <h3><i class="fas fa-code"></i> Skills</h3>
+                <div id="skills-container"></div>
+            </div>
+        </aside>
 
-  <script>
-    // --- DATA ---
-    const skills = [
-      { name: "Java (Spring Boot)", pct: 90 },
-      { name: "MySQL / Database", pct: 85 },
-      { name: "Thymeleaf", pct: 80 },
-      { name: "Web Analytics / JS", pct: 70 },
-      { name: "C++ (DSA)", pct: 75 }
-    ];
+        <section>
+            <div class="glass-card appear-on-scroll" data-delay="400">
+                <h3><i class="fas fa-chart-line"></i> Overview</h3>
+                <p>Hi, I'm Rasheduzzaman. My core focus is on **building scalable, secure, and maintainable backend applications**. I believe in clean code and robust architecture, primarily leveraging **Java Spring Boot** for enterprise solutions.</p> 
+                <p>Recently, I led the analysis for the **PUPC (Programming Club) survey**, building a comprehensive digital report and dashboard, showcasing my full-stack capabilities.</p>
+            </div>
 
-    const projects = [
-      {
-        title: "PUPC Official Site & Survey",
-        desc: "Official site and analytical dashboard for the Presidency University Programming Club (Team Wizards).",
-        tags: ["web", "analytics", "team-wizards"],
-        link: "https://sites.google.com/student.presidency.edu.bd/pupc"
-      },
-     {
-       title: "Presentation on The Shawshank Redemption",
-       desc: "A simple and inspiring presentation about hope, friendship, and freedom shown in the movie 'The Shawshank Redemption'.",
-       tags: ["movie-review", "inspiration", "shawshank-redemption"],
-       link: "https://sites.google.com/student.presidency.edu.bd/presentation"
-    },
-      
-      {
-        title: "DSA Solutions Repo",
-        desc: "Collection of optimized C++ solutions for competitive programming problems.",
-        tags: ["c++", "algorithm"],
-        link: "https://github.com"
-      }
-    ];
+            <div id="projects" class="glass-card appear-on-scroll" data-delay="600">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3><i class="fas fa-laptop-code"></i> Recent Work</h3>
+                    <select id="filter" style="width:auto; margin:0; padding:6px 12px;" onchange="renderProjects()">
+                        <option value="all">All</option>
+                        <option value="web">Web / Analytics</option>
+                        <option value="presentation">Presentations</option>
+                        <option value="c++">DSA / C++</option>
+                    </select>
+                </div>
+                
+                <div class="project-grid" id="project-grid"></div>
+            </div>
 
-    // --- LOGIC ---
+            <div class="glass-card appear-on-scroll" data-delay="800">
+                <h3><i class="fas fa-paper-plane"></i> Send Message</h3>
+                <form onsubmit="alert('Thank you! This is a demo.'); return false;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <input placeholder="Name" required>
+                        <input placeholder="Email" type="email" required>
+                    </div>
+                    <textarea rows="4" placeholder="Your message..." required></textarea>
+                    <button class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-    // 1. Typing Effect
-    const text = "CSE Student • Software Developer • Data Analyst";
-    let idx = 0;
-    function typeText() {
-      if(idx < text.length) {
-        document.getElementById('typing-text').innerHTML += text.charAt(idx);
-        idx++;
-        setTimeout(typeText, 50);
-      }
-    }
+    <footer>
+        &copy; 2025 Md. Rasheduzzaman. Built with HTML, CSS, & Vanilla JS.
+    </footer>
 
-    // 2. Render Skills
-    const skillsContainer = document.getElementById('skills-container');
-    skills.forEach(s => {
-      skillsContainer.innerHTML += `
-        <div class="skill-row">
-          <div class="skill-info"><span>${s.name}</span><span>${s.pct}%</span></div>
-          <div class="bar-bg"><div class="bar-fill" style="width:0" data-w="${s.pct}%"></div></div>
+    <div id="project-modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-desc"></p>
+            <div id="modal-tags" class="tags"></div>
+            <a id="modal-link" href="#" target="_blank" class="btn" style="margin-top: 15px;">Go to Project</a>
         </div>
-      `;
-    });
+    </div>
 
-    // 3. Render Projects
-    function renderProjects() {
-      const filter = document.getElementById('filter').value;
-      const grid = document.getElementById('project-grid');
-      grid.innerHTML = "";
-      
-      const filtered = projects.filter(p => filter === 'all' || p.tags.includes(filter));
-      
-      filtered.forEach(p => {
-        const linkHtml = p.link && p.link !== '#' 
-          ? `<a href="${p.link}" target="_blank" class="view-btn">View Project &rarr;</a>` 
-          : `<span style="margin-top:12px; font-size:0.8rem; opacity:0.5; cursor:not-allowed">Private Project</span>`;
+    <script>
+        // --- DATA ---
+        const skills = [
+            { name: "Java (Spring Boot)", pct: 90, icon: 'fab fa-java' },
+            { name: "MySQL / Database", pct: 85, icon: 'fas fa-database' },
+            { name: "Thymeleaf", pct: 80, icon: 'fas fa-th' },
+            { name: "Web Analytics / JS", pct: 70, icon: 'fas fa-chart-area' },
+            { name: "C++ (DSA)", pct: 75, icon: 'fas fa-code' }
+        ];
 
-        grid.innerHTML += `
-          <div class="project">
-            <h4>${p.title}</h4>
-            <p style="font-size:0.85rem">${p.desc}</p>
-            <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join('')}</div>
-            ${linkHtml}
-          </div>
-        `;
-      });
-    }
+        const projects = [
+            {
+                title: "PUPC Official Site & Survey",
+                desc: "Official site and comprehensive analytical dashboard for the Presidency University Programming Club (Team Wizards). I managed the backend data flow and visualization for the club's annual survey.",
+                tags: ["web", "analytics", "team-wizards"],
+                link: "https://sites.google.com/student.presidency.edu.bd/pupc"
+            },
+            {
+                title: "Presentation on The Shawshank Redemption",
+                desc: "A simple and inspiring presentation about hope, friendship, and freedom shown in the movie 'The Shawshank Redemption', created using Google Slides.",
+                tags: ["presentation", "movie-review", "inspiration", "shawshank-redemption"],
+                link: "https://sites.google.com/student.presidency.edu.bd/presentation"
+            },
+            
+            {
+                title: "Spring Security Boilerplate",
+                desc: "A secure template project built with Spring Boot, Spring Security, and Thymeleaf for rapid development of authenticated web applications.",
+                tags: ["web", "java", "security"],
+                link: "#" // Private project, will show detail in modal
+            },
+            {
+                title: "DSA Solutions Repo",
+                desc: "Collection of optimized C++ solutions for competitive programming problems and standard Data Structures & Algorithms challenges. Includes various sorting and graph implementations.",
+                tags: ["c++", "algorithm"],
+                link: "https://github.com"
+            }
+        ];
 
-    // 4. Scroll Animation
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('appear');
-          if(entry.target.innerHTML.includes('Skills')) {
-            document.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.getAttribute('data-w'));
-          }
+        // --- LOGIC ---
+
+        // 1. Typing Effect
+        const text = "CSE Student • Software Developer • Data Analyst";
+        let idx = 0;
+        function typeText() {
+            if(idx < text.length) {
+                document.getElementById('typing-text').innerHTML += text.charAt(idx);
+                idx++;
+                setTimeout(typeText, 50);
+            }
         }
-      });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.appear-on-scroll').forEach(el => observer.observe(el));
 
-    // 5. Theme Toggle
-    function toggleTheme() {
-      const body = document.body;
-      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
+        // 2. Render Skills
+        const skillsContainer = document.getElementById('skills-container');
+        skills.forEach(s => {
+            skillsContainer.innerHTML += `
+                <div class="skill-row">
+                    <div class="skill-info"><span><i class="${s.icon}"></i> ${s.name}</span><span>${s.pct}%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width:0" data-w="${s.pct}%"></div></div>
+                </div>
+            `;
+        });
 
-    window.onload = () => { typeText(); renderProjects(); };
-  </script>
+        // 3. Render Projects
+        function renderProjects() {
+            const filter = document.getElementById('filter').value;
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = "";
+            
+            const filtered = projects.filter(p => filter === 'all' || p.tags.includes(filter));
+            
+            filtered.forEach((p, index) => {
+                grid.innerHTML += `
+                    <div class="project" onclick="openModal(${index})">
+                        <h4><i class="fas fa-file-code" style="color:var(--accent);"></i> ${p.title}</h4>
+                        <p style="font-size:0.85rem">${p.desc}</p>
+                        <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join('')}</div>
+                        <span class="${p.link && p.link !== '#' ? 'view-btn' : 'disabled-link'}" style="margin-top: 12px;">
+                            ${p.link && p.link !== '#' ? 'View Project &rarr;' : 'Click for Details'}
+                        </span>
+                    </div>
+                `;
+            });
+        }
+
+        // 4. Modal Logic
+        const modal = document.getElementById('project-modal');
+        function openModal(projectIndex) {
+            const p = projects[projectIndex];
+            document.getElementById('modal-title').textContent = p.title;
+            document.getElementById('modal-desc').textContent = p.desc;
+            
+            const modalTags = document.getElementById('modal-tags');
+            modalTags.innerHTML = p.tags.map(t => `<span>#${t}</span>`).join('');
+
+            const modalLink = document.getElementById('modal-link');
+            if (p.link && p.link !== '#') {
+                modalLink.href = p.link;
+                modalLink.textContent = "Visit Live Project";
+                modalLink.style.display = 'inline-block';
+            } else {
+                modalLink.href = '#';
+                modalLink.textContent = "Project is Private/Internal";
+                modalLink.style.display = 'none';
+            }
+            
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('open'), 10);
+        }
+
+        function closeModal(event) {
+            // Close only if clicked on close button or backdrop
+            if (!event || event.target === modal || event.target.className === 'close-btn') {
+                modal.classList.remove('open');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+
+        // 5. Scroll Animation
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('appear');
+                        if(entry.target.innerHTML.includes('Skills')) {
+                            document.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.getAttribute('data-w'));
+                        }
+                    }, delay);
+                    observer.unobserve(entry.target); // Stop observing once it has appeared
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.appear-on-scroll').forEach(el => observer.observe(el));
+
+        // 6. Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+
+        // Initial calls
+        window.onload = () => { 
+            typeText(); 
+            renderProjects();
+        };
+    </script>
 </body>
 </html>
