@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Md. Rasheduzzaman — Portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      
+      --primary: #0f172a;
+      --secondary: #64748b;
+      --accent: #0ea5e9;
+      --accent-glow: rgba(14, 165, 233, 0.4);
+      
+      --font-main: 'Outfit', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme='dark'] {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --glass-bg: rgba(30, 41, 59, 0.70);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      
+      --primary: #f1f5f9;
+      --secondary: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.3);
+    }
+
+    * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+
+    body {
+      font-family: var(--font-main);
+      margin: 0;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--primary);
+      min-height: 100vh;
+    }
+
+    /* --- Header --- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 16px 5%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .avatar-wrapper { position: relative; width: 85px; height: 85px; flex-shrink: 0; }
+
+    .avatar {
+      width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .avatar:hover { transform: scale(1.1) rotate(2deg); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .status-badge {
+      position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+      background: #10b981; border: 3px solid #fff; border-radius: 50%;
+    }
+
+    .header-info { flex: 1; }
+    .name { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+    .role { font-family: var(--font-code); font-size: 0.9rem; color: var(--accent); margin-top: 4px; }
+
+    /* --- Layout --- */
+    main {
+      max-width: 1100px; margin: 40px auto; padding: 0 24px;
+      display: grid; grid-template-columns: 300px 1fr; gap: 32px;
+    }
+
+    /* --- Cards --- */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--glass-shadow);
+      margin-bottom: 24px;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .glass-card.appear { opacity: 1; transform: translateY(0); }
+
+    h3 { margin: 0 0 16px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    h3::before { content:''; display:block; width:6px; height:24px; background:var(--accent); border-radius:10px; }
+
+    p { line-height: 1.7; color: var(--secondary); margin-bottom: 12px; font-size: 0.95rem; }
+
+    /* --- Skills Visuals --- */
+    .skill-row { margin-bottom: 14px; }
+    .skill-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500; }
+    .bar-bg { height: 8px; background: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); width: 0; border-radius: 4px; transition: width 1s ease-out; }
+
+    /* --- Projects Grid --- */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .project {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project:hover { 
+      transform: translateY(-5px); 
+      border-color: var(--accent); 
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+    .project h4 { margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px; }
+    .tags { margin-top: auto; padding-top: 12px; display:flex; flex-wrap:wrap; gap: 6px; }
+    .tags span { 
+      font-size: 0.7rem; padding: 4px 10px; background: var(--accent-glow); 
+      color: var(--accent); border-radius: 20px; font-weight: 600;
+    }
+    .view-btn {
+      display: inline-block; margin-top: 12px; font-size: 0.8rem; 
+      text-decoration: none; color: var(--primary); border-bottom: 1px solid var(--accent);
+    }
+    .view-btn:hover { color: var(--accent); }
+
+    /* --- Buttons & Form --- */
+    .btn {
+      padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+      background: var(--accent); color: #fff; font-weight: 600; transition: 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow); }
+    .btn.outline { background: transparent; border: 1px solid var(--secondary); color: var(--primary); }
+    .btn.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    input, textarea, select {
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.4); color: var(--primary); margin-bottom: 12px; font-family: inherit;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.8); }
+
+    /* --- Footer --- */
+    footer { text-align: center; padding: 40px; color: var(--secondary); font-size: 0.9rem; }
+
+    /* Mobile */
+    @media(max-width: 850px) {
+      main { grid-template-columns: 1fr; }
+      header { flex-direction: column; text-align: center; }
+      .header-info { align-items: center; display: flex; flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <header>
+    <div class="avatar-wrapper">
+      <div class="avatar">
+        <img src="rashed_formal_phot.jpg" alt="Rasheduzzaman Photo">
+      </div>
+      <div class="status-badge" title="Online"></div>
+    </div>
+    
+    <div class="header-info">
+      <div class="name">Md. Rasheduzzaman</div>
+      <div class="role" id="typing-text"></div>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button class="btn outline" onclick="toggleTheme()">Theme 🌓</button>
+      <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">My Work</button>
+    </div>
+  </header>
+
+  <main>
+    <aside>
+      <div class="glass-card appear-on-scroll">
+        <h3>Contact</h3>
+        <p><strong>📍 Location:</strong> Dhaka, Bangladesh</p>
+        <p><strong>📧 Email:</strong> rasheduzzaman.7rsd@gmail.com</p>
+        <p><strong>📱 Phone:</strong> +880 1964616035</p>
+        
+        <hr style="border:0; border-top:1px solid var(--glass-border); margin: 16px 0;">
+        <p><strong>About:</strong> CSE student & Junior Software Developer. I build secure, efficient backends using Java Spring Boot and solve complex algorithms in C++.</p>
+      </div>
+
+      <div class="glass-card appear-on-scroll">
+        <h3>Skills</h3>
+        <div id="skills-container"></div>
+      </div>
+    </aside>
+
+    <section>
+      <div class="glass-card appear-on-scroll">
+        <h3>Overview</h3>
+        <p>Hi, I'm Rasheduzzaman. I specialize in <strong>Backend Development</strong> using the Spring ecosystem. I love building robust systems that solve real-world problems.</p> 
+        <p>Recently, I led the analysis for the <strong>PUPC (Programming Club)</strong> survey, building a comprehensive digital report and dashboard.</p>
+      </div>
+
+      <div id="projects" class="glass-card appear-on-scroll">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h3>Recent Work</h3>
+          <select id="filter" style="width:auto; margin:0; padding:6px 12px;" onchange="renderProjects()">
+            <option value="all">All</option>
+            <option value="web">Web / Analytics</option>
+            <option value="c++">DSA / C++</option>
+          </select>
+        </div>
+        
+        <div class="project-grid" id="project-grid"></div>
+      </div>
+
+      <div class="glass-card appear-on-scroll">
+        <h3>Send Message</h3>
+        <form onsubmit="alert('Thank you! This is a demo.'); return false;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <input placeholder="Name" required>
+            <input placeholder="Email" type="email" required>
+          </div>
+          <textarea rows="4" placeholder="Your message..." required></textarea>
+          <button class="btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Md. Rasheduzzaman • Designed with Glassmorphism
+  </footer>
+
+  <script>
+    // --- DATA ---
+    const skills = [
+      { name: "Java (Spring Boot)", pct: 90 },
+      { name: "MySQL / Database", pct: 85 },
+      { name: "Thymeleaf", pct: 80 },
+      { name: "Web Analytics / JS", pct: 70 },
+      { name: "C++ (DSA)", pct: 75 }
+    ];
+
+    const projects = [
+      {
+        title: "PUPC Official Site & Survey",
+        desc: "Official site and analytical dashboard for the Presidency University Programming Club (Team Wizards).",
+        tags: ["web", "analytics", "team-wizards"],
+        link: "https://sites.google.com/student.presidency.edu.bd/pupc"
+      },
+      {
+        title: "DSA Solutions Repo",
+        desc: "Collection of optimized C++ solutions for competitive programming problems.",
+        tags: ["c++", "algorithm"],
+        link: "https://github.com"
+      }
+    ];
+
+    // --- LOGIC ---
+
+    // 1. Typing Effect
+    const text = "CSE Student • Backend Developer • Data Analyst";
+    let idx = 0;
+    function typeText() {
+      if(idx < text.length) {
+        document.getElementById('typing-text').innerHTML += text.charAt(idx);
+        idx++;
+        setTimeout(typeText, 50);
+      }
+    }
+
+    // 2. Render Skills
+    const skillsContainer = document.getElementById('skills-container');
+    skills.forEach(s => {
+      skillsContainer.innerHTML += `
+        <div class="skill-row">
+          <div class="skill-info"><span>${s.name}</span><span>${s.pct}%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:0" data-w="${s.pct}%"></div></div>
+        </div>
+      `;
+    });
+
+    // 3. Render Projects
+    function renderProjects() {
+      const filter = document.getElementById('filter').value;
+      const grid = document.getElementById('project-grid');
+      grid.innerHTML = "";
+      
+      const filtered = projects.filter(p => filter === 'all' || p.tags.includes(filter));
+      
+      filtered.forEach(p => {
+        const linkHtml = p.link && p.link !== '#' 
+          ? `<a href="${p.link}" target="_blank" class="view-btn">View Project &rarr;</a>` 
+          : `<span style="margin-top:12px; font-size:0.8rem; opacity:0.5; cursor:not-allowed">Private Project</span>`;
+
+        grid.innerHTML += `
+          <div class="project">
+            <h4>${p.title}</h4>
+            <p style="font-size:0.85rem">${p.desc}</p>
+            <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join('')}</div>
+            ${linkHtml}
+          </div>
+        `;
+      });
+    }
+
+    // 4. Scroll Animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('appear');
+          if(entry.target.innerHTML.includes('Skills')) {
+            document.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.getAttribute('data-w'));
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.appear-on-scroll').forEach(el => observer.observe(el));
+
+    // 5. Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    window.onload = () => { typeText(); renderProjects(); };
+  </script>
+</body>
+</html>
