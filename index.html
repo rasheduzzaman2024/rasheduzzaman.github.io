@@ -277,14 +277,15 @@
 
             <div class="glass-card appear-on-scroll" data-delay="800">
                 <h3><i class="fas fa-paper-plane"></i> Send Message</h3>
-                <form onsubmit="alert('Thank you! This is a demo.'); return false;">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                        <input placeholder="Name" required>
-                        <input placeholder="Email" type="email" required>
-                    </div>
-                    <textarea rows="4" placeholder="Your message..." required></textarea>
-                    <button class="btn">Send Message</button>
-                </form>
+                <form action="https://formspree.io/f/xjknoeen" method="POST">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <input name="name" placeholder="Name" required>
+        <input name="_replyto" placeholder="Email" type="email" required>
+    </div>
+    <textarea name="message" rows="4" placeholder="Your message..." required></textarea>
+    <input type="hidden" name="_subject" value="New Portfolio Contact from Rasheduzzaman">
+    <button class="btn">Send Message</button>
+</form>
             </div>
         </section>
     </main>
